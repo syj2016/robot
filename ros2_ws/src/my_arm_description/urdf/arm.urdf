@@ -5,7 +5,7 @@
   <link name="base_link">
     <visual>
       <geometry><box size="0.4 0.4 0.2"/></geometry>
-
+      <material name="black"><color rgba="0 0 0 1"/></material>
     </visual>
     <collision>
       <geometry><box size="0.4 0.4 0.2"/></geometry>
@@ -17,56 +17,121 @@
   </link>
 
   <!-- 关节1：基座到大臂，origin z改成0.1，对齐底座顶面 -->
-  <joint name="joint1" type="revolute">
+<!--  <joint name="joint1" type="revolute">-->
+<!--    <parent link="base_link"/>-->
+<!--    <child link="link1"/>-->
+<!--    <axis xyz="0 0 1"/>-->
+<!--    <origin xyz="0 0 0.2" rpy="0 0 0"/>-->
+<!--    <limit lower="-1.57" upper="1.57" effort="100" velocity="1.0"/>-->
+<!--  </joint>-->
+
+<!--  &lt;!&ndash; 大臂 link1 &ndash;&gt;-->
+<!--  <link name="link1">-->
+<!--    <visual>-->
+<!--      <geometry><box size="0.1 0.1 0.5"/></geometry>-->
+<!--      <origin xyz="0 0 0"/>-->
+<!--      <material name="blue"/>-->
+<!--    </visual>-->
+<!--    <collision>-->
+<!--      <geometry><box size="0.1 0.1 0.5"/></geometry>-->
+<!--      <origin xyz="0 0 0"/>-->
+<!--    </collision>-->
+<!--    <inertial>-->
+<!--      <mass value="0.8"/>-->
+<!--      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>-->
+<!--    </inertial>-->
+<!--  </link>-->
+
+<!--  &lt;!&ndash; 关节2：大臂到小臂，这个坐标是对的 &ndash;&gt;-->
+<!--  <joint name="joint2" type="revolute">-->
+<!--    <parent link="link1"/>-->
+<!--    <child link="link2"/>-->
+<!--    <axis xyz="0 1 0"/>-->
+<!--    <origin xyz="0 0 0.25" rpy="0 0 0"/>-->
+<!--    <limit lower="-1.57" upper="1.57" effort="50" velocity="1.0"/>-->
+<!--  </joint>-->
+
+<!--  &lt;!&ndash; 小臂 link2，末端带相机 &ndash;&gt;-->
+<!--  <link name="link2">-->
+<!--    <visual>-->
+<!--      <geometry><box size="0.08 0.08 0.4"/></geometry>-->
+<!--      <origin xyz="0 0 0.2"/>-->
+<!--      <material name="green"/>-->
+<!--    </visual>-->
+<!--    <collision>-->
+<!--      <geometry><box size="0.08 0.08 0.4"/></geometry>-->
+<!--      <origin xyz="0 0 0.2"/>-->
+<!--    </collision>-->
+<!--    <inertial>-->
+<!--      <mass value="0.5"/>-->
+<!--      <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.005"/>-->
+<!--    </inertial>-->
+<!--  </link>-->
+
+
+  <link name="cy1">
+    <visual>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </visual>
+
+    <origin xyz="0 0 0"/>
+    <material name="red"/>
+
+    <collision>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <joint name="joint3" type="revolute">
     <parent link="base_link"/>
-    <child link="link1"/>
-    <axis xyz="0 0 1"/>
-    <origin xyz="0 0 0.2" rpy="0 0 0"/>
-    <limit lower="-1.57" upper="1.57" effort="100" velocity="1.0"/>
-  </joint>
-
-  <!-- 大臂 link1 -->
-  <link name="link1">
-    <visual>
-      <geometry><box size="0.1 0.1 0.5"/></geometry>
-      <origin xyz="0 0 0"/>
-      <material name="blue"/>
-    </visual>
-    <collision>
-      <geometry><box size="0.1 0.1 0.5"/></geometry>
-      <origin xyz="0 0 0"/>
-    </collision>
-    <inertial>
-      <mass value="0.8"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
-  </link>
-
-  <!-- 关节2：大臂到小臂，这个坐标是对的 -->
-  <joint name="joint2" type="revolute">
-    <parent link="link1"/>
-    <child link="link2"/>
+    <child link="cy1"/>
+    <origin xyz="0 0.25 0" rpy="1.5708 0 0"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0 0 0.25" rpy="0 0 0"/>
-    <limit lower="-1.57" upper="1.57" effort="50" velocity="1.0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
   </joint>
 
-  <!-- 小臂 link2，末端带相机 -->
-  <link name="link2">
+
+  <link name="cy3">
     <visual>
-      <geometry><box size="0.08 0.08 0.4"/></geometry>
-      <origin xyz="0 0 0.2"/>
-      <material name="green"/>
+      <geometry>
+        <cylinder radius="0.1" length="0.05"/>
+      </geometry>
     </visual>
+
+    <origin xyz="0 0 0"/>
+    <material name="red"/>
+
     <collision>
-      <geometry><box size="0.08 0.08 0.4"/></geometry>
-      <origin xyz="0 0 0.2"/>
+    <geometry>
+      <cylinder radius="0.1" length="0.05"/>
+      </geometry>
     </collision>
+
     <inertial>
-      <mass value="0.5"/>
-      <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.005"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.001"/>
     </inertial>
   </link>
+
+  <joint name="joint4" type="revolute">
+    <parent link="base_link"/>
+    <child link="cy3"/>
+    <origin xyz="0 -0.25 0" rpy="1.5708 0 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="0" upper="0" effort="0" velocity="0"/>
+  </joint>
+
+
+
 
   <!-- Gazebo 相机传感器 -->
   <gazebo reference="link2">

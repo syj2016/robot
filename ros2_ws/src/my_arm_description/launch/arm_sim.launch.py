@@ -28,13 +28,17 @@ def generate_launch_description():
         ]
     )
 
+
+    sdf_args = os.path.join(pkg_dir,"sdf","my_world.sdf")
+
+
     # 2. Jazzy标准方式：引入ros_gz_sim自带gz_sim.launch.py，支持composition两个参数
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, "launch", "gz_sim.launch.py")
         ),
         launch_arguments={
-            "gz_args": "empty.sdf",
+            "gz_args": sdf_args,
             "use_composition": use_composition,
             "create_own_container": create_own_container,
         }.items()
@@ -51,6 +55,9 @@ def generate_launch_description():
         ],
         output="screen"
     )
+
+
+
 
     # 4. ros_gz_bridge：相机图像桥接
     bridge = Node(
